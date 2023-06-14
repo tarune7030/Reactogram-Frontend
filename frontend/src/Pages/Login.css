@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,200;1,300;1,400&family=Roboto:ital,wght@0,100;0,300;0,400;1,100;1,300;1,400&family=Satisfy&display=swap");
+
+.login-container {
+  margin-top: 6rem;
+  font-family: "Poppins", sans-serif;
+}
+.input-bg {
+  background-color: #f3f3f3;
+  color: #dbd5db;
+  font-size: 0.9rem;
+  height: 2.9rem;
+}
+
+.custom-btn {
+  padding: 0.6rem;
+  border-radius: 4px;
+}
+.custom-btn-blue {
+  border: none;
+  background-color: #b3e0ff;
+  color: white;
+  padding: 14px;
+}
+.custom-btn-white {
+  border: 1px solid #e5e7e9;
+  background-color: white;
+  color: black;
+  padding: 14px;
+}
+.socialDesktop {
+  display: block;
+}
+.socialMobile {
+  display: none;
+}
+.or {
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-column-gap: 1.2rem;
+  align-items: center;
+}
+
+.or:before,
+.or:after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: currentColor;
+}
+@media only screen and (max-width: 450px) {
+  .socialDesktop {
+    display: none;
+  }
+  .socialMobile {
+    display: block;
+  }
+  .login-container {
+    margin-top: 2.5rem;
+  }
+  .card-body {
+    padding-left: 1.4rem !important;
+    padding-right: 1.4rem !important;
+  }
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
