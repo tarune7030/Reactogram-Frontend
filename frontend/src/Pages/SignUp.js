@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Login.css";
 import socialDesktop from "../assets/Desktop-img.png";
 import socialMobile from "../assets/social-mobile.PNG";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from "../../src/config";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const signup = (event) => {
+    event.preventDefault();
+
+    setLoading(true);
+    const requestData = { fullName: fullName, email, password };
+    axios
+      .post(`${API_BASE_URL}/signup`, requestData)
+      .then((result) => {
+        debugger;
+        if (result.status === 201) {
+          setLoading(false);
+          Swal.fire({
+            icon: "success",
+            title: "User successfully registered!",
+          });
+        }
+        setFullName("");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        Swal.fire({
+          icon: "error",
+          title: "Some error occurred please try again later!",
+        });
+      });
+  };
+
   return (
     <div className="container login-container">
       <div className="row">
@@ -18,10 +57,19 @@ const SignUp = () => {
           <img className="socialMobile" src={socialMobile} alt="socialMobile" />
         </div>
         <div className="col-md-4 col-sm-12">
-          <div className="mt-2 card shadow">
+          <div className="card shadow">
+            {loading ? (
+              <div className="col-md-12 mt-3 text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="card-body px-4">
               <h5 className="fw-bold text-center">Sign Up</h5>
-              <form>
+              <form onSubmit={(e) => signup(e)}>
                 <input
                   type="text"
                   className="p-2 mt-4 mb-2 form-control input-bg"
@@ -29,25 +77,31 @@ const SignUp = () => {
                 />
 
                 <input
+                  value={email}
+                  onChange={(ev) => setEmail(ev.target.value)}
                   type="email"
                   className="p-2 mb-2 form-control input-bg"
                   placeholder="Email"
                 />
 
                 <input
+                  value={fullName}
+                  onChange={(ev) => setFullName(ev.target.value)}
                   type="text"
                   className="p-2 mb-2 form-control input-bg"
                   placeholder="FullName"
                 />
 
                 <input
+                  value={password}
+                  onChange={(ev) => setPassword(ev.target.value)}
                   type="password"
                   className="p-2 mb-2 form-control input-bg"
                   placeholder="Password"
                 />
                 <div className="form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="checkbox"
                     value=""
                     id="flexCheckDefault"
@@ -55,7 +109,6 @@ const SignUp = () => {
                   <label
                     style={{ marginRight: "150px" }}
                     className="form-check-label"
-                    for="flexCheckDefault"
                   >
                     Remember me
                   </label>

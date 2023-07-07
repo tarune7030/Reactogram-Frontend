@@ -6,3 +6,13 @@
 .location {
   margin-top: -14px;
 }
+.heart:hover {
+  color: brown;
+  cursor: pointer;
+}
+@media only screen and (max-width: 450px) {
+  .postImage {
+    height: 490px;
+    width: 90%;
+  }
+}
